@@ -1,0 +1,19 @@
+{
+  "name": "gradient-descent",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cereceres/gradient-descent-js.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cereceres/gradient-descent-js/issues"
+  },
+  "homepage": "https://github.com/Cereceres/gradient-descent-js#readme"
+}
