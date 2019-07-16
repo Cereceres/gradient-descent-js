@@ -1,6 +1,6 @@
 {
   "name": "gradient-descent",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,13 @@
     "type": "git",
     "url": "git+https://github.com/Cereceres/gradient-descent-js.git"
   },
-  "author": "",
+  "keywords": [
+    "gradient",
+    "descent",
+    "optimize",
+    "numerical"
+  ],
+  "author": "Jesus Edel Cereceres Delgado",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Cereceres/gradient-descent-js/issues"

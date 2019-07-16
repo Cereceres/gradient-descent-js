@@ -16,9 +16,9 @@ const add_lists = (list1, list2) => list1.reduce(
 module.exports = async (
   point_0,
   get_error,
-  STEP_SIZE = 1,
+  STEP_SIZE = 0.3,
   DELTA_SIZE = STEP_SIZE.DELTA_SIZE || 1,
-  NUM_STEPS = STEP_SIZE.NUM_STEPS || 10,
+  NUM_STEPS = STEP_SIZE.NUM_STEPS || 15,
   PRESICION = STEP_SIZE.NUM_STEPS || STEP_SIZE || 1,
 ) => {
   STEP_SIZE = STEP_SIZE.STEP_SIZE || STEP_SIZE;
@@ -40,12 +40,13 @@ module.exports = async (
       derivate.push(numerical_derivate);
       x_n[index] -= DELTA_SIZE;
     }
+
     const normOfDerivate = norm_of_vector(derivate);
 
     if (normOfDerivate < PRESICION) break;
 
-    const stepNormalized = -1 * STEP_SIZE / normOfDerivate;
-    const stepInDerivateDirection = scalar_product(derivate, stepNormalized);
+    const stepInDerivateDirection = scalar_product(derivate, -1 * STEP_SIZE);
+
     x_n_minus_1 = add_lists(x_n, stepInDerivateDirection);
     Error_n_minus_1 = await get_error(...x_n_minus_1);
     x_n = Object.assign([], x_n_minus_1);
