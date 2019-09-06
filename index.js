@@ -29,7 +29,8 @@ module.exports = async (
   for (let j = 0; j < NUM_STEPS; j++) {
     const derivate = [];
     for (let index = 0; index < space_dim; index++) {
-      x_n[index] += DELTA_SIZE;
+      step = (Math.random() || 1) * DELTA_SIZE
+      x_n[index] += step;
       const Error_n = await get_error(...x_n);
       const numerical_derivate = get_numerical_derivate(
         Error_n,
@@ -38,7 +39,7 @@ module.exports = async (
         x_n_minus_1[index],
       );
       derivate.push(numerical_derivate);
-      x_n[index] -= DELTA_SIZE;
+      x_n[index] -= step;
     }
 
     const normOfDerivate = norm_of_vector(derivate);
