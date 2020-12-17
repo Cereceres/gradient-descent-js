@@ -19,7 +19,7 @@ module.exports = async (
   STEP_SIZE = 0.3,
   DELTA_SIZE = STEP_SIZE.DELTA_SIZE || 1,
   NUM_STEPS = STEP_SIZE.NUM_STEPS || 15,
-  PRESICION = STEP_SIZE.NUM_STEPS || STEP_SIZE || 1,
+  PRECISION = STEP_SIZE.PRECISION || STEP_SIZE || 1,
 ) => {
   STEP_SIZE = STEP_SIZE.STEP_SIZE || STEP_SIZE;
   let x_n_minus_1 = Object.assign([], point_0);
@@ -44,7 +44,7 @@ module.exports = async (
 
     const normOfDerivate = norm_of_vector(derivate);
 
-    if (normOfDerivate < PRESICION) break;
+    if (normOfDerivate < PRECISION) break;
 
     const stepInDerivateDirection = scalar_product(derivate, -1 * STEP_SIZE);
 

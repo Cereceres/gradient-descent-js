@@ -5,9 +5,9 @@ Module to iterate over a numerically function to Gradient Descent direction
 # API
 The module expose a function with next params
 
-#### GD(initialPoint,asyncNumericalFunc,stepSize,deltaSize,numSteps,presicion)->Promise(bestParams)
+#### GD(initialPoint,asyncNumericalFunc,stepSize,deltaSize,numSteps,precision)->Promise(bestParams)
 
-Iterate NUM_STEPS and stop when the norm of gradient is less that PRESICION, 
+Iterate NUM_STEPS and stop when the norm of gradient is less that PRECISION, 
 every step is of size STEP_SIZE and the numerical derivate is aproximated by:
 
     derivate = [f(x + DELTA_SIZE) - f(x)]/DELTA_SIZE
