@@ -20,6 +20,7 @@ module.exports = async (
   DELTA_SIZE = STEP_SIZE.DELTA_SIZE || 1,
   NUM_STEPS = STEP_SIZE.NUM_STEPS || 15,
   PRECISION = STEP_SIZE.PRECISION || STEP_SIZE.STEP_SIZE || STEP_SIZE || 1,
+  TOLERANCE = STEP_SIZE.TOLERANCE,
   ADAPTIVE = (STEP_SIZE.ADAPTIVE !== undefined ? STEP_SIZE.ADAPTIVE : false)
 ) => {
   STEP_SIZE = STEP_SIZE.STEP_SIZE || STEP_SIZE;
@@ -61,6 +62,7 @@ module.exports = async (
     x_n_minus_1 = add_lists(x_n, stepInDerivateDirection);
     Error_n_minus_1 = await get_error(...x_n_minus_1);
     x_n = Object.assign([], x_n_minus_1);
+    if (Error_n_minus_1 < TOLERANCE) break;
   }
   return x_n;
 };
