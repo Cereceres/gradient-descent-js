@@ -19,7 +19,9 @@ module.exports = async (
   STEP_SIZE = 0.3,
   DELTA_SIZE = STEP_SIZE.DELTA_SIZE || 1,
   NUM_STEPS = STEP_SIZE.NUM_STEPS || 15,
-  PRESICION = STEP_SIZE.NUM_STEPS || STEP_SIZE || 1,
+  PRECISION = STEP_SIZE.PRECISION || STEP_SIZE.STEP_SIZE || STEP_SIZE || 1,
+  TOLERANCE = STEP_SIZE.TOLERANCE,
+  ADAPTIVE = (STEP_SIZE.ADAPTIVE !== undefined ? STEP_SIZE.ADAPTIVE : false)
 ) => {
   STEP_SIZE = STEP_SIZE.STEP_SIZE || STEP_SIZE;
   let x_n_minus_1 = Object.assign([], point_0);
@@ -29,7 +31,11 @@ module.exports = async (
   for (let j = 0; j < NUM_STEPS; j++) {
     const derivate = [];
     for (let index = 0; index < space_dim; index++) {
-      step = (Math.random() || 1) * DELTA_SIZE
+      if (ADAPTIVE) {
+        step = (Math.random() || 1) * (ADAPTIVE*DELTA_SIZE/(j+ADAPTIVE))
+      } else {
+        step = (Math.random() || 1) * (DELTA_SIZE)
+      }
       x_n[index] += step;
       const Error_n = await get_error(...x_n);
       const numerical_derivate = get_numerical_derivate(
@@ -44,13 +50,19 @@ module.exports = async (
 
     const normOfDerivate = norm_of_vector(derivate);
 
-    if (normOfDerivate < PRESICION) break;
+    if (normOfDerivate < PRECISION) break;
 
-    const stepInDerivateDirection = scalar_product(derivate, -1 * STEP_SIZE);
+    let stepInDerivateDirection;
+    if (ADAPTIVE) {
+        stepInDerivateDirection = scalar_product(derivate, -1 * (ADAPTIVE*STEP_SIZE/(j+ADAPTIVE)));
+    } else {
+        stepInDerivateDirection = scalar_product(derivate, -1 * STEP_SIZE);
+    }
 
     x_n_minus_1 = add_lists(x_n, stepInDerivateDirection);
     Error_n_minus_1 = await get_error(...x_n_minus_1);
     x_n = Object.assign([], x_n_minus_1);
+    if (Error_n_minus_1 < TOLERANCE) break;
   }
   return x_n;
 };
