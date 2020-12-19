@@ -32,7 +32,7 @@ module.exports = async (
     const derivate = [];
     for (let index = 0; index < space_dim; index++) {
       if (ADAPTIVE) {
-        step = (Math.random() || 1) * (10*DELTA_SIZE/(j+10))
+        step = (Math.random() || 1) * (ADAPTIVE*DELTA_SIZE/(j+ADAPTIVE))
       } else {
         step = (Math.random() || 1) * (DELTA_SIZE)
       }
@@ -54,7 +54,7 @@ module.exports = async (
 
     let stepInDerivateDirection;
     if (ADAPTIVE) {
-        stepInDerivateDirection = scalar_product(derivate, -1 * (10*STEP_SIZE/(j+10)));
+        stepInDerivateDirection = scalar_product(derivate, -1 * (ADAPTIVE*STEP_SIZE/(j+ADAPTIVE)));
     } else {
         stepInDerivateDirection = scalar_product(derivate, -1 * STEP_SIZE);
     }
